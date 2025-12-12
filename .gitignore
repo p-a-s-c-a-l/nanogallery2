@@ -3,3 +3,7 @@ screenshots/
 .travis.yml
 gruntfile.js
 /*.code-workspace
+dist
+build
+.grunt
+/package-lock.json

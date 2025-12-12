@@ -137,8 +137,8 @@ module.exports = function(grunt) {
       'terser:standardTargetNanoPhotosProvider2',
       'cssmin',
       'usebanner',
-/*      'header', */
-      'gh-pages'
+      /* 'header', */
+      /* 'gh-pages' */
       /* 'usebanner' */
       /* 'uglify:standardTarget',
       'concat:minimalDebug',
@@ -146,4 +146,3 @@ module.exports = function(grunt) {
       'copy:redirects' */
     ]);
 }
-      

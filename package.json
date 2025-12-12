@@ -20,20 +20,20 @@
   },
   "devDependencies": {
     "grunt": "~1.6.1",
-    "grunt-bump": "0.0.13",
-    "grunt-codepainter": "latest",
-    "grunt-contrib-concat": "~0.1.3",
-    "grunt-contrib-copy": "^0.7.0",
+    "grunt-bump": "0.8.0",
+    "grunt-contrib-concat": "~2.1.0",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-qunit": "latest",
     "grunt-terser": "latest",
-    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-cssmin": "^5.0.0",
     "grunt-gh-pages": "latest",
     "grunt-banner": "latest",
     "grunt-header": "latest"
   },
   "scripts": {
-    "test": "grunt build-nanogallery2"
+    "test": "grunt build-nanogallery2",
+    "build": "grunt build-nanogallery2"
   },
   "dependencies": {
     "jquery": ">=1.12.4"
