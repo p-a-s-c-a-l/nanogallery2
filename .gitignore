@@ -6,4 +6,3 @@ gruntfile.js
 dist
 build
 .grunt
-/package-lock.json
