@@ -24,13 +24,26 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Create dev release (pre-release) and upload build assets
-        uses: ncipollo/release-action@v1
+      - name: Archive build directory
+        run: |
+          cd $GITHUB_WORKSPACE
+          zip -r build.zip build
+
+      - name: Create dev release (pre-release)
+        id: create_release
+        uses: actions/create-release@v1
         with:
-          tag: dev-${{ github.sha }}
-          name: Dev build ${{ github.ref }} - ${{ github.sha }}
+          tag_name: dev-${{ github.sha }}
+          release_name: Dev build ${{ github.ref }} - ${{ github.sha }}
           body: |
             Automated dev build from `${{ github.ref }}`.
-          files: build/**
           draft: false
           prerelease: true
+
+      - name: Upload build ZIP to release
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build.zip
+          asset_name: build.zip
+          asset_content_type: application/zip
