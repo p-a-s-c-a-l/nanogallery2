@@ -3,11 +3,14 @@ name: Dev build and release
 on:
   push:
     branches: [ dev ]
+    tags: ['dev-*']
   workflow_dispatch:
 
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -30,33 +33,41 @@ jobs:
           zip -r build.zip build
 
       - name: Create dev release (pre-release)
+        if: startsWith(github.ref, 'refs/tags/')
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: dev-${{ github.sha }}
-          release_name: Dev build ${{ github.ref }} - ${{ github.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ github.ref_name }}
+          release_name: Dev build ${{ github.ref_name }}
           body: |
             Automated dev build from `${{ github.ref }}`.
           draft: false
           prerelease: true
       - name: Upload build ZIP to release
+        if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-release-asset@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./build.zip
           asset_name: build.zip
           asset_content_type: application/zip
       - name: Upload JS asset
+        if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-release-asset@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: build/dist/jquery.nanogallery2.min.js
           asset_name: jquery.nanogallery2.min.js
           asset_content_type: application/javascript
 
       - name: Upload CSS WOFF asset
+        if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-release-asset@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: build/dist/css/nanogallery2.woff.min.css
           asset_name: nanogallery2.woff.min.css
