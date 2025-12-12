@@ -6,3 +6,4 @@ gruntfile.js
 dist
 build
 .grunt
+test
