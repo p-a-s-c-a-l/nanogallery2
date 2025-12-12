@@ -37,6 +37,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ github.ref_name }}
           release_name: Dev build ${{ github.ref_name }}
           body: |
@@ -48,6 +49,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-release-asset@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./build.zip
           asset_name: build.zip
@@ -57,6 +59,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-release-asset@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: build/dist/jquery.nanogallery2.min.js
           asset_name: jquery.nanogallery2.min.js
@@ -66,8 +69,8 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-release-asset@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: build/dist/css/nanogallery2.woff.min.css
           asset_name: nanogallery2.woff.min.css
           asset_content_type: text/css
-          
