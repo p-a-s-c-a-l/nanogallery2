@@ -1,15 +1,15 @@
-name: Dev build and release
+name: Build and publish release assets
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
-  build-and-release:
+  build-and-release-assets:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -24,21 +24,16 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Archive build directory
-        run: |
-          cd $GITHUB_WORKSPACE
-          zip -r build.zip build
-
-      - name: Create dev release (pre-release)
+      - name: Create release
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: dev-${{ github.sha }}
-          release_name: Dev build ${{ github.ref }} - ${{ github.sha }}
+          tag_name: release-${{ github.sha }}
+          release_name: Release ${{ github.sha }}
           body: |
-            Automated dev build from `${{ github.ref }}`.
+            Automated release containing built assets.
           draft: false
-          prerelease: true
+          prerelease: false
       - name: Upload build ZIP to release
         uses: actions/upload-release-asset@v1
         with:
