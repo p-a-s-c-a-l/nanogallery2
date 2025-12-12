@@ -36,6 +36,6 @@
     "build": "grunt build-nanogallery2"
   },
   "dependencies": {
-    "jquery": ">=1.12.4"
+    "jquery": ">=3.7.1"
   }
 }
